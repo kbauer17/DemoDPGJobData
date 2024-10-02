@@ -8,28 +8,34 @@
 
 <form asp-action="AddData" method="post">
     <div>
-        <label asp-for="Initials" class="control-label">Status Id</label>
+        <label asp-for="Initials" class="control-label">Initials</label>
         <input asp-for="Initials" 
             class="form-control" maxlength="2" required
             placeholder="Example:  CP" />
     </div>
     <div>
-        <label asp-for="JobNum" class="control-label">Status Id</label>
+        <label asp-for="JobNum" class="control-label">Job Number</label>
         <input asp-for="JobNum" 
             class="form-control" maxlength="5" required
             placeholder="Example:  12345" />
     </div>
     <div>
-        <label asp-for="StartTime" class="control-label">Status Id</label>
+        <label asp-for="StartTime" class="control-label">Start Time</label>
         <input asp-for="StartTime" 
             class="form-control" maxlength="12" required
             placeholder="Example:  1000am" />
     </div>
     <div>
-        <label asp-for="EndTime" class="control-label">Status Id</label>
+        <label asp-for="EndTime" class="control-label">End Time</label>
         <input asp-for="EndTime" 
             class="form-control" maxlength="12" required
             placeholder="Example:  1200pm" />
+    </div>
+    <div>
+        <label asp-for="Quantity" class="control-label">Quantity</label>
+        <input asp-for="Quantity" 
+            class="form-control" maxlength="4" required
+            placeholder="Example:  400" />
     </div>
     <div class="form-group">
         <input type="submit" value="Add Data" class="btn btn-primary" />

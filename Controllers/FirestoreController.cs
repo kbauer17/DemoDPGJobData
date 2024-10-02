@@ -45,7 +45,8 @@ public class FirestoreController : Controller
             Initials= demoJobData.Initials,
             JobNum = demoJobData.JobNum,
             StartTime = demoJobData.StartTime,
-            EndTime = demoJobData.EndTime
+            EndTime = demoJobData.EndTime,
+            Quantity = demoJobData.Quantity
         });
         return RedirectToAction("AddData");
     }

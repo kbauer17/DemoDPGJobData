@@ -19,4 +19,7 @@ public class DemoJobData
     [FirestoreProperty]
     public required string EndTime {get; set;}
 
+    [FirestoreProperty]
+    public required int Quantity{get; set;}
+
 }

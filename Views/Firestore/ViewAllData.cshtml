@@ -1,0 +1,55 @@
+@model IEnumerable<DemoDPGJobData.Models.DemoJobData>
+
+@{
+    ViewData["Title"] = "View Data";
+}
+
+<h2>View Firestore Data</h2>
+
+<table class="stripe nowrap" id="viewDataTable">
+    <thead>
+        <tr>
+            <th>Initials</th>
+            <th>Job Number</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model){
+            <tr>
+                <td>@item.Initials</td>
+                <td>@item.JobNum</td>
+                <td>@item.StartTime</td>
+                <td>@item.EndTime</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to Home Page</a>
+</div>
+
+
+<link href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script>
+        // Creates DataTable
+        // DataTable Documentation found here: https://datatables.net/
+        $(function () {
+            $('#viewDataTable').DataTable({
+                @* columns: [null, null,null,null, { orderable: false }], *@
+                order: [[1, 'asc']],
+                @* pageLength: 10,
+                searching: true,
+                lengthChange: false,
+                language: {
+                    emptyTable: 'No data found'
+                } *@
+            });
+        });
+    </script>
+}

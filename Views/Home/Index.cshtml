@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Job Data Home Page";
+}
+    
+<div class="card-group text-center p-2">
+    <div class="card bg-primary p-3">
+        <h2 class="m-b-0">
+            <a class="page-link" asp-controller="Firestore" asp-action="ViewAllData">
+                <i class="fas fa-search"></i>
+                View All Data
+            </a>
+        </h2>
+    </div>
+    <div class="card bg-primary p-3">
+        <h2 class="m-b-0">
+            <a class="page-link" asp-controller="Firestore" asp-action="AddData">
+                <i class="fas fa-users"></i>
+                Add Data
+            </a>
+        </h2>
+    </div>
+    
+    
+</div>

@@ -1,4 +1,4 @@
-@model DemoDPGJobData.Models.DemoJobData;
+@model DemoDPGJobData.ViewModels.JobDataViewModel;
 
 @{
     ViewData["Title"] = "Add Data";
@@ -8,38 +8,117 @@
 
 <form asp-action="AddData" method="post">
     <div>
-        <label asp-for="Initials" class="control-label">Initials</label>
-        <input asp-for="Initials" 
+        <label asp-for="DemoJobData.Initials" class="control-label">Initials</label>
+        <input asp-for="DemoJobData.Initials" 
             class="form-control" maxlength="2" required
             placeholder="Example:  CP" />
     </div>
     <div>
-        <label asp-for="JobNum" class="control-label">Job Number</label>
-        <input asp-for="JobNum" 
+        <label asp-for="DemoJobData.JobNum" class="control-label">Job Number</label>
+        <input asp-for="DemoJobData.JobNum" 
             class="form-control" maxlength="5" required
             placeholder="Example:  12345" />
     </div>
     <div>
-        <label asp-for="StartTime" class="control-label">Start Time</label>
-        <input asp-for="StartTime" 
+        <label asp-for="DemoJobData.StartTime" class="control-label">Start Time</label>
+        <input asp-for="DemoJobData.StartTime" 
             class="form-control" maxlength="12" required
             placeholder="Example:  1000am" />
     </div>
     <div>
-        <label asp-for="EndTime" class="control-label">End Time</label>
-        <input asp-for="EndTime" 
+        <label asp-for="DemoJobData.EndTime" class="control-label">End Time</label>
+        <input asp-for="DemoJobData.EndTime" 
             class="form-control" maxlength="12" required
             placeholder="Example:  1200pm" />
     </div>
     <div>
-        <label asp-for="Quantity" class="control-label">Quantity</label>
-        <input asp-for="Quantity" 
+        <label asp-for="DemoJobData.Quantity" class="control-label">Quantity</label>
+        <input asp-for="DemoJobData.Quantity" 
             class="form-control" maxlength="4" required
             placeholder="Example:  400" />
     </div>
+
+    <div>
+        <label  class="control-label" asp-for="JobOp.Id">Select Operation</label>
+        <select class="form-control" asp-for="JobOp.Id" asp-items="ViewBag.JobOps"></select>
+        <span asp-validation-for="JobOp.Id" class="text-danger"></span>
+    </div>
+
+
     <div class="form-group">
         <input type="submit" value="Add Data" class="btn btn-primary" />
     </div>
+
+        @* @foreach (var operation in ViewBag.operations)
+    {
+        <input type="radio" asp-for="JobOp" value="@operation" />@operation<br />
+    } *@
+
+    @* <div>
+        <div class="form-check form-check-inline">
+            <label class="form-check-label">
+            <input  class="form-check-input"
+                    type="radio"
+                    name="operation"
+                    value="Top"
+                    v-model="selectedMedia"
+            >Top</label>
+        </div>
+                <div class="form-check form-check-inline">
+            <label class="form-check-label">
+            <input  class="form-check-input"
+                    type="radio"
+                    name="operation"
+                    value="Header"
+                    v-model="selectedMedia"
+            >Header</label>
+        </div>
+                <div class="form-check form-check-inline">
+            <label class="form-check-label">
+            <input  class="form-check-input"
+                    type="radio"
+                    name="operation"
+                    value="Finish"
+                    v-model="selectedMedia"
+            >Finish</label>
+        </div>
+                <div class="form-check form-check-inline">
+            <label class="form-check-label">
+            <input  class="form-check-input"
+                    type="radio"
+                    name="operation"
+                    value="Grommet"
+                    v-model="selectedMedia"
+            >Grommet</label>
+        </div>
+                <div class="form-check form-check-inline">
+            <label class="form-check-label">
+            <input  class="form-check-input"
+                    type="radio"
+                    name="operation"
+                    value="Corner"
+                    v-model="selectedMedia"
+            >Corner</label>
+        </div>
+                <div class="form-check form-check-inline">
+            <label class="form-check-label">
+            <input  class="form-check-input"
+                    type="radio"
+                    name="operation"
+                    value="Bottom"
+                    v-model="selectedMedia"
+            >Bottom</label>
+        </div>
+                <div class="form-check form-check-inline">
+            <label class="form-check-label">
+            <input  class="form-check-input"
+                    type="radio"
+                    name="operation"
+                    value="Menu"
+                    v-model="selectedMedia"
+            >Menu</label>
+        </div>
+    </div> *@
 
 </form>
 

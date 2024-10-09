@@ -1,4 +1,5 @@
 using Google.Cloud.Firestore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DemoDPGJobData.Models;
 
@@ -21,5 +22,14 @@ public class DemoJobData
 
     [FirestoreProperty]
     public required int Quantity{get; set;}
+
+    [BindProperty]
+    [FirestoreProperty]
+    public required int JobOpId {get; set;}
+
+    public required virtual JobOp JobOp {get; set;}
+
+   
+  
 
 }

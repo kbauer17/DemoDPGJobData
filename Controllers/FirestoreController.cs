@@ -1,8 +1,8 @@
 using DemoDPGJobData.Models;
+using DemoDPGJobData.ViewModels;
 using Google.Cloud.Firestore;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 public class FirestoreController : Controller
 {
@@ -27,7 +27,13 @@ public class FirestoreController : Controller
     /// Present the view for entering new Data
     /// </summary>
     /// <returns></returns>
-    public IActionResult AddData(){
+    public async Task<IActionResult> AddData(){
+        CollectionReference collection = _firestoreDb.Collection("JobOp");
+        QuerySnapshot snapshot = await collection.GetSnapshotAsync();
+        var operations = snapshot.Documents.Select(d => d.ConvertTo<JobOp>()).ToList();
+        ViewData["JobOps"] = new SelectList(operations, "Id", "OpName");
+        
+
         return View();
     }
 
@@ -37,16 +43,19 @@ public class FirestoreController : Controller
     /// <param name="demoJobData"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult>AddData(DemoJobData demoJobData)
+    public async Task<IActionResult>AddData(JobDataViewModel model)
     {
+        
         CollectionReference collection = _firestoreDb.Collection("DemoJobData");
         DocumentReference document = await collection.AddAsync(new DemoJobData
         {
-            Initials= demoJobData.Initials,
-            JobNum = demoJobData.JobNum,
-            StartTime = demoJobData.StartTime,
-            EndTime = demoJobData.EndTime,
-            Quantity = demoJobData.Quantity
+            Initials= model.DemoJobData.Initials,
+            JobNum = model.DemoJobData.JobNum,
+            StartTime = model.DemoJobData.StartTime,
+            EndTime = model.DemoJobData.EndTime,
+            Quantity = model.DemoJobData.Quantity,
+            JobOp = model.JobOp,
+            JobOpId = model.JobOp.Id
         });
         return RedirectToAction("AddData");
     }

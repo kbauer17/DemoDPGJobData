@@ -1,4 +1,6 @@
-@model IEnumerable<DemoDPGJobData.Models.DemoJobData>
+@model IEnumerable<DemoDPGJobData.ViewModels.JobDataViewModel>
+@* @model IEnumerable<DemoDPGJobData.Models.DemoJobData> *@
+
 
 @{
     ViewData["Title"] = "View Data";
@@ -20,12 +22,12 @@
     <tbody>
         @foreach(var item in Model){
             <tr>
-                <td>@item.Initials</td>
-                <td>@item.JobNum</td>
-                <td>@item.StartTime</td>
-                <td>@item.EndTime</td>
-                <td>@item.Quantity</td>
-                <td>@item.JobOpId</td>
+                <td>@item.DemoJobData.Initials</td>
+                <td>@item.DemoJobData.JobNum</td>
+                <td>@item.DemoJobData.StartTime</td>
+                <td>@item.DemoJobData.EndTime</td>
+                <td>@item.DemoJobData.Quantity</td>
+                <td>@item.JobOp.OpName</td>
             </tr>
         }
     </tbody>

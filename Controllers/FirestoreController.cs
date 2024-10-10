@@ -20,7 +20,20 @@ public class FirestoreController : Controller
         CollectionReference collection = _firestoreDb.Collection("DemoJobData");
         QuerySnapshot snapshot = await collection.GetSnapshotAsync();
         var documents = snapshot.Documents.Select(d => d.ConvertTo<DemoJobData>()).ToList();
-        return View(documents);   
+
+        CollectionReference collection2 = _firestoreDb.Collection("JobOp");
+        QuerySnapshot snapshot2 = await collection2.GetSnapshotAsync();
+        var operations = snapshot2.Documents.Select(d => d.ConvertTo<JobOp>()).ToList();
+
+        var result = from d in documents join o in operations on d.JobOpId equals o.Id
+                        select new JobDataViewModel
+                            {
+                                DemoJobData = d,
+                                JobOp = o
+                            };
+                            
+
+        return View(result.ToList().AsEnumerable());   
     }
 
     /// <summary>

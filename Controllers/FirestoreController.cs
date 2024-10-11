@@ -87,24 +87,28 @@ public class FirestoreController : Controller
     /// View all the data in the Firestore database
     /// </summary>
     /// <returns></returns>
-    // public async Task<IActionResult>EditData(){
-    //     CollectionReference collection = _firestoreDb.Collection("DemoJobData");
-    //     QuerySnapshot snapshot = await collection.GetSnapshotAsync();
-    //     var documents = snapshot.Documents.Select(d => d.ConvertTo<DemoJobData>()).ToList();
+    public async Task<IActionResult>EditData(string id)
+    {
+        CollectionReference collection = _firestoreDb.Collection("DemoJobData");
+        QuerySnapshot snapshot = await collection.GetSnapshotAsync();
+        var documents = snapshot.Documents.Select(d => d.ConvertTo<DemoJobData>()).ToList();
 
-    //     CollectionReference collection2 = _firestoreDb.Collection("JobOp");
-    //     QuerySnapshot snapshot2 = await collection2.GetSnapshotAsync();
-    //     var operations = snapshot2.Documents.Select(d => d.ConvertTo<JobOp>()).ToList();
+        CollectionReference collection2 = _firestoreDb.Collection("JobOp");
+        QuerySnapshot snapshot2 = await collection2.GetSnapshotAsync();
+        var operations = snapshot2.Documents.Select(d => d.ConvertTo<JobOp>()).ToList();
 
-    //     var result = from d in documents join o in operations on d.JobOpId equals o.Id
-    //                     select new JobDataViewModel
-    //                         {
-    //                             DemoJobData = d,
-    //                             JobOp = o
-    //                         };
-                            
+        var result = from d in documents 
+                        join o in operations on d.JobOpId equals o.Id
+                        where d.JobDataId == id
+                        select new JobDataViewModel
+                            {
+                                DemoJobData = d,
+                                JobOp = o
+                            };
 
-    //     return View(result.ToList().AsEnumerable());   
-    // }
+        var specificDocumentModel = result.FirstOrDefault();
+
+        return View(specificDocumentModel);   
+    }
 
 }

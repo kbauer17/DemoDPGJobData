@@ -19,6 +19,7 @@
             <th>Minutes</th>
             <th>Quantity</th>
             <th>Operation</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -32,6 +33,9 @@
                 <td>@item.DemoJobData.Minutes</td>
                 <td>@item.DemoJobData.Quantity</td>
                 <td>@item.JobOp.OpName</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Firestore" asp-action="EditData" asp-route-id="@item.DemoJobData.JobDataId">Edit</a>
+                </td>
             </tr>
         }
     </tbody>
@@ -51,7 +55,7 @@
         // DataTable Documentation found here: https://datatables.net/
         $(function () {
             $('#viewDataTable').DataTable({
-                @* columns: [null, null,null,null, { orderable: false }], *@
+                columns: [null,null,null,null,null,null,null,null, { orderable: false }],
                 order: [[0, 'asc']],
                 @* pageLength: 10,
                 searching: true,

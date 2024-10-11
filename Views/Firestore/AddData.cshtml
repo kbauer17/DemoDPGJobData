@@ -29,15 +29,21 @@
     </div>
     <div>
         <label asp-for="DemoJobData.StartTime" class="control-label">Start Time</label>
-        <input asp-for="DemoJobData.StartTime" 
-            class="form-control" maxlength="12" required
-            placeholder="Example:  1000am" />
+        <input 
+            type="time"
+            asp-for="DemoJobData.StartTime"
+            name="DemoJobData.StartTime" 
+            class="form-control" maxlength="12" required/>
+            @* placeholder="Example:  1000am" /> *@
     </div>
     <div>
         <label asp-for="DemoJobData.EndTime" class="control-label">End Time</label>
-        <input asp-for="DemoJobData.EndTime" 
-            class="form-control" maxlength="12" required
-            placeholder="Example:  1200pm" />
+        <input 
+            type="time"
+            asp-for="DemoJobData.EndTime"
+            name="DemoJobData.EndTime" 
+            class="form-control" maxlength="12" required/>
+            @* placeholder="Example:  1200pm" /> *@
     </div>
     <div>
         <label asp-for="DemoJobData.Quantity" class="control-label">Quantity</label>

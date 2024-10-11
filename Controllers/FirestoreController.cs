@@ -58,6 +58,7 @@ public class FirestoreController : Controller
     [HttpPost]
     public async Task<IActionResult>AddData(JobDataViewModel model)
     {
+        DateTime utcDate = model.DemoJobData.DateToday.Date.ToUniversalTime();
         
         CollectionReference collection = _firestoreDb.Collection("DemoJobData");
         DocumentReference document = await collection.AddAsync(new DemoJobData
@@ -67,6 +68,7 @@ public class FirestoreController : Controller
             StartTime = model.DemoJobData.StartTime,
             EndTime = model.DemoJobData.EndTime,
             Quantity = model.DemoJobData.Quantity,
+            DateToday = utcDate,
             JobOp = model.JobOp,
             JobOpId = model.JobOp.Id
         });

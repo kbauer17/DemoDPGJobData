@@ -23,6 +23,9 @@ public class DemoJobData
     [FirestoreProperty]
     public required int Quantity{get; set;}
 
+    [FirestoreProperty]
+    public required DateTime DateToday {get; set;}= DateTime.Now; // default to today's date
+
     [BindProperty]
     [FirestoreProperty]
     public required int JobOpId {get; set;}

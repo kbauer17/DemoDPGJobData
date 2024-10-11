@@ -11,6 +11,7 @@
 <table class="stripe nowrap" id="viewDataTable">
     <thead>
         <tr>
+            <th>Date</th>
             <th>Initials</th>
             <th>Job Number</th>
             <th>Start Time</th>
@@ -22,6 +23,7 @@
     <tbody>
         @foreach(var item in Model){
             <tr>
+                <td>@item.DemoJobData.DateToday.ToString("dd/MM/yyyy")</td>
                 <td>@item.DemoJobData.Initials</td>
                 <td>@item.DemoJobData.JobNum</td>
                 <td>@item.DemoJobData.StartTime</td>
@@ -48,7 +50,7 @@
         $(function () {
             $('#viewDataTable').DataTable({
                 @* columns: [null, null,null,null, { orderable: false }], *@
-                order: [[1, 'asc']],
+                order: [[0, 'asc']],
                 @* pageLength: 10,
                 searching: true,
                 lengthChange: false,

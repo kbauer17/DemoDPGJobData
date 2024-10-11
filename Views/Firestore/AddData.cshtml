@@ -14,6 +14,14 @@
             placeholder="Example:  CP" />
     </div>
     <div>
+        <label class="mr-1" style="padding-right: 1em">Today's Date:</label>
+        <input class="form-control" placeholder="Please select the date" 
+            type="date" 
+            asp-for="DemoJobData.DateToday" 
+            name="DemoJobData.DateToday"/>
+        @* <span asp-validation-for="DemoJobData.DateToday" class="text-danger"></span> *@
+    </div>
+    <div>
         <label asp-for="DemoJobData.JobNum" class="control-label">Job Number</label>
         <input asp-for="DemoJobData.JobNum" 
             class="form-control" maxlength="5" required

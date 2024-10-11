@@ -6,135 +6,69 @@
 
 <h2>Add Data to Firestore</h2>
 
+<div class="container">
 <form asp-action="AddData" method="post">
-    <div>
-        <label asp-for="DemoJobData.Initials" class="control-label">Initials</label>
-        <input asp-for="DemoJobData.Initials" 
-            class="form-control" maxlength="2" required
-            placeholder="Example:  CP" />
+    <div class="row">
+        <div class="col-sm-6 mb-3">
+            <label asp-for="DemoJobData.Initials" class="control-label">Initials</label>
+            <input asp-for="DemoJobData.Initials" 
+                class="form-control" maxlength="2" required
+                placeholder="Example:  CP" />
+        </div>
+        <div class="col-sm-6 mb-3">
+            <label class="mr-1" style="padding-right: 1em">Today's Date:</label>
+            <input class="form-control" placeholder="Please select the date" 
+                type="date" 
+                asp-for="DemoJobData.DateToday" 
+                name="DemoJobData.DateToday"/>
+            @* <span asp-validation-for="DemoJobData.DateToday" class="text-danger"></span> *@
+        </div>
     </div>
-    <div>
-        <label class="mr-1" style="padding-right: 1em">Today's Date:</label>
-        <input class="form-control" placeholder="Please select the date" 
-            type="date" 
-            asp-for="DemoJobData.DateToday" 
-            name="DemoJobData.DateToday"/>
-        @* <span asp-validation-for="DemoJobData.DateToday" class="text-danger"></span> *@
+    <div class="row">
+        <div class="col-sm-6 mb-3">
+            <label asp-for="DemoJobData.JobNum" class="control-label">Job Number</label>
+            <input asp-for="DemoJobData.JobNum" 
+                class="form-control" maxlength="5" required
+                placeholder="Example:  12345" />
+        </div>
+        <div class="col-sm-6 mb-3">
+            <label  class="control-label" asp-for="JobOp.Id">Select Operation</label>
+            <select class="form-select" asp-for="JobOp.Id" asp-items="ViewBag.JobOps"></select>
+            <span asp-validation-for="JobOp.Id" class="text-danger"></span>
+        </div>
     </div>
-    <div>
-        <label asp-for="DemoJobData.JobNum" class="control-label">Job Number</label>
-        <input asp-for="DemoJobData.JobNum" 
-            class="form-control" maxlength="5" required
-            placeholder="Example:  12345" />
+    <div class="row">
+        <div class="col-sm-6 mb-3">
+            <label asp-for="DemoJobData.StartTime" class="control-label">Start Time</label>
+            <input 
+                type="time"
+                asp-for="DemoJobData.StartTime"
+                name="DemoJobData.StartTime" 
+                class="form-control" maxlength="12" required/>
+        </div>
+        <div class="col-sm-6 mb-3">
+            <label asp-for="DemoJobData.EndTime" class="control-label">End Time</label>
+            <input 
+                type="time"
+                asp-for="DemoJobData.EndTime"
+                name="DemoJobData.EndTime" 
+                class="form-control" maxlength="12" required/>
+        </div>
     </div>
-    <div>
-        <label asp-for="DemoJobData.StartTime" class="control-label">Start Time</label>
-        <input 
-            type="time"
-            asp-for="DemoJobData.StartTime"
-            name="DemoJobData.StartTime" 
-            class="form-control" maxlength="12" required/>
-            @* placeholder="Example:  1000am" /> *@
+    <div class="row">
+        <div class="col-sm-6 mb-3">
+            <label asp-for="DemoJobData.Quantity" class="control-label">Quantity</label>
+            <input asp-for="DemoJobData.Quantity" 
+                class="form-control" maxlength="4" required
+                placeholder="Example:  400" />
+        </div>
     </div>
-    <div>
-        <label asp-for="DemoJobData.EndTime" class="control-label">End Time</label>
-        <input 
-            type="time"
-            asp-for="DemoJobData.EndTime"
-            name="DemoJobData.EndTime" 
-            class="form-control" maxlength="12" required/>
-            @* placeholder="Example:  1200pm" /> *@
-    </div>
-    <div>
-        <label asp-for="DemoJobData.Quantity" class="control-label">Quantity</label>
-        <input asp-for="DemoJobData.Quantity" 
-            class="form-control" maxlength="4" required
-            placeholder="Example:  400" />
-    </div>
-
-    <div>
-        <label  class="control-label" asp-for="JobOp.Id">Select Operation</label>
-        <select class="form-control" asp-for="JobOp.Id" asp-items="ViewBag.JobOps"></select>
-        <span asp-validation-for="JobOp.Id" class="text-danger"></span>
-    </div>
-
-
-    <div class="form-group">
+    <div class="form-group mb-3">
         <input type="submit" value="Add Data" class="btn btn-primary" />
     </div>
 
-        @* @foreach (var operation in ViewBag.operations)
-    {
-        <input type="radio" asp-for="JobOp" value="@operation" />@operation<br />
-    } *@
-
-    @* <div>
-        <div class="form-check form-check-inline">
-            <label class="form-check-label">
-            <input  class="form-check-input"
-                    type="radio"
-                    name="operation"
-                    value="Top"
-                    v-model="selectedMedia"
-            >Top</label>
-        </div>
-                <div class="form-check form-check-inline">
-            <label class="form-check-label">
-            <input  class="form-check-input"
-                    type="radio"
-                    name="operation"
-                    value="Header"
-                    v-model="selectedMedia"
-            >Header</label>
-        </div>
-                <div class="form-check form-check-inline">
-            <label class="form-check-label">
-            <input  class="form-check-input"
-                    type="radio"
-                    name="operation"
-                    value="Finish"
-                    v-model="selectedMedia"
-            >Finish</label>
-        </div>
-                <div class="form-check form-check-inline">
-            <label class="form-check-label">
-            <input  class="form-check-input"
-                    type="radio"
-                    name="operation"
-                    value="Grommet"
-                    v-model="selectedMedia"
-            >Grommet</label>
-        </div>
-                <div class="form-check form-check-inline">
-            <label class="form-check-label">
-            <input  class="form-check-input"
-                    type="radio"
-                    name="operation"
-                    value="Corner"
-                    v-model="selectedMedia"
-            >Corner</label>
-        </div>
-                <div class="form-check form-check-inline">
-            <label class="form-check-label">
-            <input  class="form-check-input"
-                    type="radio"
-                    name="operation"
-                    value="Bottom"
-                    v-model="selectedMedia"
-            >Bottom</label>
-        </div>
-                <div class="form-check form-check-inline">
-            <label class="form-check-label">
-            <input  class="form-check-input"
-                    type="radio"
-                    name="operation"
-                    value="Menu"
-                    v-model="selectedMedia"
-            >Menu</label>
-        </div>
-    </div> *@
-
 </form>
+</div>
 
 <div>
     <a asp-controller="Firestore" asp-action="ViewAllData">Back to List</a>

@@ -10,6 +10,9 @@ public class DemoJobData
     public DemoJobData(){}
 
     [FirestoreProperty]
+    public string? JobDataId {get; set;}
+
+    [FirestoreProperty]
     [Required(ErrorMessage = "Please enter your initials")]
     public required string Initials {get; set;}
 

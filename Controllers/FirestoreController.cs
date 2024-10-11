@@ -58,6 +58,8 @@ public class FirestoreController : Controller
     [HttpPost]
     public async Task<IActionResult>AddData(JobDataViewModel model)
     {
+        model.DemoJobData.JobDataId = Guid.NewGuid().ToString();
+
         DateTime utcDate = model.DemoJobData.DateToday.Date.ToUniversalTime();
 
         DateTime dateTime1 = DateTime.ParseExact(model.DemoJobData.StartTime, "HH:mm", null);
@@ -67,6 +69,7 @@ public class FirestoreController : Controller
         CollectionReference collection = _firestoreDb.Collection("DemoJobData");
         DocumentReference document = await collection.AddAsync(new DemoJobData
         {
+            JobDataId = model.DemoJobData.JobDataId,
             Initials= model.DemoJobData.Initials,
             JobNum = model.DemoJobData.JobNum,
             StartTime = model.DemoJobData.StartTime,
@@ -80,5 +83,28 @@ public class FirestoreController : Controller
         return RedirectToAction("AddData");
     }
 
+    /// <summary>
+    /// View all the data in the Firestore database
+    /// </summary>
+    /// <returns></returns>
+    // public async Task<IActionResult>EditData(){
+    //     CollectionReference collection = _firestoreDb.Collection("DemoJobData");
+    //     QuerySnapshot snapshot = await collection.GetSnapshotAsync();
+    //     var documents = snapshot.Documents.Select(d => d.ConvertTo<DemoJobData>()).ToList();
+
+    //     CollectionReference collection2 = _firestoreDb.Collection("JobOp");
+    //     QuerySnapshot snapshot2 = await collection2.GetSnapshotAsync();
+    //     var operations = snapshot2.Documents.Select(d => d.ConvertTo<JobOp>()).ToList();
+
+    //     var result = from d in documents join o in operations on d.JobOpId equals o.Id
+    //                     select new JobDataViewModel
+    //                         {
+    //                             DemoJobData = d,
+    //                             JobOp = o
+    //                         };
+                            
+
+    //     return View(result.ToList().AsEnumerable());   
+    // }
 
 }

@@ -1,0 +1,61 @@
+@* @model IEnumerable<DemoDPGJobData.ViewModels.AdministrationViewModel> *@
+@model IEnumerable<DemoDPGJobData.Models.JobOp>
+
+
+@{
+    ViewData["Title"] = "View Data";
+}
+
+<h2>Operation List</h2>
+
+<div>
+    <a class="btn btn-primary" asp-controller="Administration" asp-action="AddOperation">Create New</a>
+</div>
+
+<table class="stripe nowrap" id="viewOperationsTable">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Operation Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model){
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.OpName</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Administration" asp-action="EditOperation" asp-route-id="@item.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to Home Page</a>
+</div>
+
+
+<link href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script>
+        // Creates DataTable
+        // DataTable Documentation found here: https://datatables.net/
+        $(function () {
+            $('#viewOperationsTable').DataTable({
+                columns: [null,null, { orderable: false }],
+                order: [[0, 'asc']],
+                @* pageLength: 10,
+                searching: true,
+                lengthChange: false,
+                language: {
+                    emptyTable: 'No data found'
+                } *@
+            });
+        });
+    </script>
+}

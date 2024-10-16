@@ -86,7 +86,7 @@ public class FirestoreController : Controller
     }
 
     /// <summary>
-    /// View all the data in the Firestore database
+    /// Edit the data in the Firestore database
     /// </summary>
     /// <returns></returns>
     public async Task<IActionResult>EditData(string id)

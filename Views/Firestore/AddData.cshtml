@@ -70,8 +70,11 @@
             <span asp-validation-for="DemoJobData.Quantity" class="text-danger"></span>
         </div>
     </div>
-    <div class="form-group mb-3">
-        <input type="submit" value="Add Data" class="btn btn-primary" />
+    <div class="row mb-3">
+        <div class="form-group mb-3">
+            <a asp-controller="Firestore" asp-action="AddData" class="btn btn-outline-danger">Clear Form</a>
+            <input type="submit" value="Add Data" class="btn btn-primary" />
+        </div>
     </div>
 
 </form>

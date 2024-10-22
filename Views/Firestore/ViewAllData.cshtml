@@ -1,10 +1,10 @@
 @model IEnumerable<DemoDPGJobData.ViewModels.JobDataViewModel>
-@* @model IEnumerable<DemoDPGJobData.Models.DemoJobData> *@
-
 
 @{
     ViewData["Title"] = "View Data";
 }
+
+<div class="container">
 
 <h2>View Firestore Data</h2>
 
@@ -35,6 +35,7 @@
                 <td>@item.JobOp.OpName</td>
                 <td>
                     <a class="btn btn-primary" asp-controller="Firestore" asp-action="EditData" asp-route-id="@item.DemoJobData.JobDataId">Edit</a>
+                    <a class="btn btn-danger" asp-controller="Firestore" asp-action="DeleteData" asp-route-id="@item.DemoJobData.JobDataId">Delete</a>
                 </td>
             </tr>
         }
@@ -43,6 +44,8 @@
 
 <div>
     <a asp-controller="Home" asp-action="Index">Back to Home Page</a>
+</div>
+
 </div>
 
 

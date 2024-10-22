@@ -4,9 +4,10 @@
     ViewData["Title"] = "Add Data";
 }
 
+<div class="container">
+
 <h2>Add Data to Firestore</h2>
 
-<div class="container">
 <form asp-action="AddData" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row">
@@ -74,10 +75,11 @@
     </div>
 
 </form>
-</div>
 
 <div>
     <a asp-controller="Firestore" asp-action="ViewAllData">Back to List</a>
+</div>
+
 </div>
 
 @section Scripts {

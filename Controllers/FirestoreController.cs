@@ -160,4 +160,66 @@ public class FirestoreController : Controller
         return RedirectToAction("ViewAllData");
     }
 
+    /// <summary>
+    /// Delete specific data document in the Firestore database
+    /// </summary>
+    /// <returns></returns>
+    public async Task<IActionResult>DeleteData(string id)
+    {
+        CollectionReference collection = _firestoreDb.Collection("DemoJobData");
+        QuerySnapshot snapshot = await collection.GetSnapshotAsync();
+        var documents = snapshot.Documents.Select(d => d.ConvertTo<DemoJobData>()).ToList();
+
+        CollectionReference collection2 = _firestoreDb.Collection("JobOp");
+        QuerySnapshot snapshot2 = await collection2.GetSnapshotAsync();
+        var operations = snapshot2.Documents.Select(d => d.ConvertTo<JobOp>()).ToList();
+       ViewData["JobOps"] = new SelectList(operations, "Id", "OpName");
+
+        var result = from d in documents 
+                        join o in operations on d.JobOpId equals o.Id
+                        where d.JobDataId == id
+                        select new JobDataViewModel
+                            {
+                                DemoJobData = d,
+                                JobOp = o
+                            };
+
+        var specificDocumentModel = result.FirstOrDefault();
+
+        return View(specificDocumentModel);   
+    }
+
+    /// <summary>
+    /// Delete specific data document in the Firestore database
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<IActionResult>DeleteData(JobDataViewModel model)
+    {
+        var id = model.DemoJobData.JobDataId;
+
+        if(string.IsNullOrEmpty(id))
+        {
+            _logger.LogError("Invalid document ID");
+            return BadRequest("Invalid document ID");
+        }
+
+        var collection = _firestoreDb.Collection("DemoJobData");
+        var query = collection.WhereEqualTo("JobDataId",id);
+        var snapshot = await query.GetSnapshotAsync();
+
+        if(!snapshot.Documents.Any())
+        {
+            _logger.LogError("Document not found: {JobDataId}", id);
+            return NotFound();
+        }
+
+        var documentReference = snapshot.Documents.First().Reference;
+        await documentReference.DeleteAsync();
+        _logger.LogInformation("Document deleted: {DocumentId}", id);
+        
+        return RedirectToAction("ViewAllData");
+    }
+
+
 }

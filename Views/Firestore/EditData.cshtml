@@ -4,9 +4,10 @@
     ViewData["Title"] = "Edit Data";
 }
 
+<div class="container">
+
 <h2>Edit Data in Firestore</h2>
 
-<div class="container">
 <form asp-action="EditData" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="DemoJobData.JobDataId" value="@Model.DemoJobData.JobDataId" readonly/>
@@ -78,10 +79,12 @@
     </div>
 
 </form>
-</div>
+
 
 <div>
     <a asp-controller="Firestore" asp-action="ViewAllData">Back to List</a>
+</div>
+
 </div>
 
 @section Scripts {

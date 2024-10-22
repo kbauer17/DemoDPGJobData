@@ -1,10 +1,10 @@
-@* @model IEnumerable<DemoDPGJobData.ViewModels.AdministrationViewModel> *@
 @model IEnumerable<DemoDPGJobData.Models.JobOp>
-
 
 @{
     ViewData["Title"] = "View Data";
 }
+
+<div class="container">
 
 <h2>Operation List</h2>
 
@@ -27,6 +27,7 @@
                 <td>@item.OpName</td>
                 <td>
                     <a class="btn btn-primary" asp-controller="Administration" asp-action="EditOperation" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-danger" asp-controller="Administration" asp-action="DeleteOperation" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }
@@ -37,6 +38,7 @@
     <a asp-controller="Administration" asp-action="Index">Back to Admin Home Page</a>
 </div>
 
+</div>
 
 <link href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" rel="stylesheet" />
 

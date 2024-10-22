@@ -119,4 +119,64 @@ public class AdministrationController : Controller
     }
 
 
+    /// <summary>
+    /// Delete an Operation in the Firestore database
+    /// </summary>
+    /// <returns></returns>
+    public async Task<IActionResult>DeleteOperation(int id)
+    {
+        var collection = _firestoreDb.Collection("JobOp");
+        var query = collection.WhereEqualTo("Id", id);
+        var snapshot = await query.GetSnapshotAsync();
+        
+        if(snapshot.Documents.Any())
+        {
+            var document = snapshot.Documents[0];
+            var jobOp = document.ConvertTo<JobOp>(); //ensure the model class matches the Firestore document structure
+
+            _logger.LogInformation("Document found: {DocumentPath}", document.Reference.Path);
+
+            var model = new AdministrationViewModel
+            {
+                JobOp = jobOp
+            };
+            return View(model);
+        }
+
+        _logger.LogError("No document found with Id: {Id}", id);
+        return NotFound();   
+    }
+
+    /// <summary>
+    /// Delete specific Operation in the Firestore database
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<IActionResult>DeleteData(JobDataViewModel model)
+    {
+        var id = model.JobOp.Id;
+
+        // if(string.IsNullOrEmpty(id))
+        // {
+        //     _logger.LogError("Invalid document ID");
+        //     return BadRequest("Invalid document ID");
+        // }
+
+        var collection = _firestoreDb.Collection("JobOp");
+        var query = collection.WhereEqualTo("Id",id);
+        var snapshot = await query.GetSnapshotAsync();
+
+        if(!snapshot.Documents.Any())
+        {
+            _logger.LogError("Document not found: {Id}", id);
+            return NotFound();
+        }
+
+        var documentReference = snapshot.Documents.First().Reference;
+        await documentReference.DeleteAsync();
+        _logger.LogInformation("Document deleted: {DocumentId}", id);
+        
+        return RedirectToAction("ViewAllOperations");
+    }
+
 }
